@@ -5,6 +5,7 @@ https://bitcoincore.org
 
 For an immediately usable, binary version of the Bitcoin Core software, see
 https://bitcoincore.org/en/download/.
+see:
 https://googlechrome.github.io/lighthouse-ci/difftool/?baseReport=https://googlechrome.github.io/lighthouse-ci/packages/server/test/fixtures/lh-5-6-0-verge-a.json&compareReport=https://googlechrome.github.io/lighthouse-ci/packages/server/test/fixtures/lh-5-6-0-verge-b.json
 What is Bitcoin Core?
 ---------------------
