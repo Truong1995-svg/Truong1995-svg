@@ -17,19 +17,13 @@ concurrency:
   group: ${{ github.event_name != 'pull_request' && github.run_id || github.ref }}
   cancel-in-progress: true
 
-env:
-  DANGER_RUN_CI_ON_HOST: 1
-  CI_FAILFAST_TEST_LEAVE_DANGLING: 1  # GHA does not care about dangling processes and setting this variable avoids killing the CI script itself on error
-  MAKEJOBS: '-j10'
-
 jobs:
   test-each-commit:
     name: 'test each commit'
     runs-on: ubuntu-22.04
     if: github.event_name == 'pull_request' && github.event.pull_request.commits != 1
     timeout-minutes: 360  # Use maximum time, see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes. Assuming a worst case time of 1 hour per commit, this leads to a --max-count=6 below.
-    env:
-      MAX_COUNT: 6
+    
     steps:
       - name: Determine fetch depth
         run: echo "FETCH_DEPTH=$((${{ github.event.pull_request.commits }} + 2))" >> "$GITHUB_ENV"
@@ -79,11 +73,6 @@ jobs:
     if: github.repository != 'bitcoin-core/gui' || github.event_name == 'pull_request'
 
     timeout-minutes: 120
-
-    env:
-      FILE_ENV: './ci/test/00_setup_env_mac_native.sh'
-      BASE_ROOT_DIR: ${{ github.workspace }}
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -92,14 +81,6 @@ jobs:
         run: |
           sudo xcode-select --switch /Applications/Xcode_15.0.app
           clang --version
-
-      - name: Install Homebrew packages
-        env:
-          HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK: 1
-        run: |
-          # A workaround for "The `brew link` step did not complete successfully" error.
-          brew install python@3 || brew link --overwrite python@3
-          brew install automake libtool pkg-config gnu-getopt ccache boost libevent miniupnpc libnatpmp zeromq qt@5 qrencode
 
       - name: Set Ccache directory
         run: echo "CCACHE_DIR=${RUNNER_TEMP}/ccache_dir" >> "$GITHUB_ENV"
