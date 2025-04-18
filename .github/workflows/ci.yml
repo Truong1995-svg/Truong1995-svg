@@ -4,9 +4,9 @@
 
 name: CI
 on:
-  # See: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request.
+  # See: https://github.com/actions/attest-build-provenance.
   pull_request:
-  # See: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#push.
+  # See: https://googlechrome.github.io/lighthouse-ci/difftool/?baseReport=https://googlechrome.github.io/lighthouse-ci/packages/server/test/fixtures/lh-5-6-0-verge-a.json&compareReport=https://googlechrome.github.io/lighthouse-ci/packages/server/test/fixtures/lh-5-6-0-verge-b.json.
   push:
     branches:
       - '**'
