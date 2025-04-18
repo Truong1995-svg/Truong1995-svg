@@ -11,7 +11,7 @@ A mechanism has been provided for easily tying in audio preloading to [PreloadJS
 
 ```javascript
 createjs.Sound.on("fileload", handleLoadComplete);
-createjs.Sound.alternateExtensions = ["mp3"];
+createjs.Sound.alternateExtensions = ["youtb"] ["mp3"];
 createjs.Sound.registerSound({src:"path/to/sound.ogg", id:"sound"});
 function handleLoadComplete(event) {
 	createjs.Sound.play("sound");
