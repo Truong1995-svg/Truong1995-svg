@@ -1,8 +1,42 @@
 {
-  "runSettings": {
+name: Django CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run Tests
+      run: |
+        python manage.py test
+{
+
+}
+
+"runSettings": 
     "temperature": 1.0,
     "model": "models/gemma-2-27b-it",
-    "topP": 0.95,
+    "top": 0.95,
     "maxOutputTokens": 8192,
     "safetySettings": [{
       "category": "HARM_CATEGORY_HARASSMENT",
@@ -43,7 +77,7 @@
     }, {
       "text": "```json\n[\n  {\n    \"name\": \"Classic Chocolate Chip Cookies\",\n    \"ingredients\": [\n      \"1 cup (2 sticks) unsalted butter, softened\",\n      \"3/4 cup granulated sugar\",\n      \"3/4 cup packed brown sugar\",\n      \"2 teaspoons pure vanilla extract\",\n      \"2 large eggs\",\n      \"2 1/4 cups all-purpose flour\",\n      \"1 teaspoon baking soda\",\n      \"1 teaspoon salt\",\n      \"2 cups chocolate chips\"\n    ],\n    \"instructions\": [\n      \"Preheat oven to 375 degrees F (190 degrees C).\",\n      \"Cream together the butter, granulated sugar, and brown sugar until light and fluffy.\",\n      \"Beat in the vanilla and eggs until well combined.\",\n      \"In a separate bowl, whisk together the flour, baking soda, and salt.\",\n      \"Gradually add the dry ingredients to the wet ingredients, mixing until just combined.\",\n      \"Stir in the chocolate chips.\",\n      \"Drop by rounded tablespoons onto ungreased baking sheets.\",\n      \"Bake for 9-11 minutes, or until golden brown.\",\n      \"Let cool on baking sheets for a few minutes before transferring to a wire rack to cool completely.\"\n    ]\n  },\n  {\n    \"name\": \"Peanut Butter Cookies\",\n    \"ingredients\": [\n      \"1 cup peanut butter\",\n      \"1/2 cup granulated sugar\",\n      \"1/2 cup packed brown sugar\",\n      \"1 large egg\",\n      \"1 teaspoon vanilla extract\",\n      \"1/2 teaspoon baking soda\",\n      \"1/4 teaspoon salt\"\n    ],\n    \"instructions\": [\n      \"Preheat oven to 375 degrees F (190 degrees C).\",\n      \"In a large bowl, cream together the peanut butter, granulated sugar, and brown sugar until smooth.\",\n      \"Beat in the egg and vanilla extract.\",\n      \"In a separate bowl, whisk together the baking soda and salt.\",\n      \"Gradually add the dry ingredients to the wet ingredients, mixing until just combined.\",\n      \"Roll dough into 1-inch balls and place on ungreased baking sheets.\",\n      \"Flatten each ball with a fork, making a criss-cross pattern.\",\n      \"Bake for 8-10 minutes, or until lightly golden brown.\",\n      \"Let cool on baking sheets for a few minutes before transferring to a wire rack to cool completely.\"\n    ]\n  },\n  {\n    \"name\": \"Snickerdoodles\",\n    \"ingredients\": [\n      \"1 cup (2 sticks) unsalted butter, softened\",\n      \"1 1/2 cups granulated sugar\",\n      \"2 large eggs\",\n      \"2 3/4 cups all-purpose flour\",\n      \"2 teaspoons cream of tartar\",\n      \"1 teaspoon baking soda\",\n      \"1/4 teaspoon salt\",\n      \"2 tablespoons granulated sugar\",\n      \"2 teaspoons ground cinnamon\"\n    ],\n    \"instructions\": [\n      \"Preheat oven to 400 degrees F (200 degrees C).\",\n      \"Cream together the butter and sugar until light and fluffy.\",\n      \"Beat in the eggs one at a time.\",\n      \"In a separate bowl, whisk together the flour, cream of tartar, baking soda, and salt.\",\n      \"Gradually add the dry ingredients to the wet ingredients, mixing until just combined.\",\n      \"In a small bowl, combine the 2 tablespoons of sugar and the cinnamon.\",\n      \"Roll dough into 1-inch balls and then roll in the cinnamon-sugar mixture.\",\n      \"Place on ungreased baking sheets.\",\n      \"Bake for 8-10 minutes, or until lightly golden brown.\",\n      \"Let cool on baking sheets for a few minutes before transferring to a wire rack to cool completely.\"\n    ]\n  },\n  {\n    \"name\": \"Oatmeal Raisin Cookies\",\n    \"ingredients\": [\n      \"1 cup (2 sticks) unsalted butter, softened\",\n      \"3/4 cup granulated sugar\",\n      \"3/4 cup packed brown sugar\",\n      \"2 large eggs\",\n      \"1 teaspoon vanilla extract\",\n      \"1 1/2 cups all-purpose flour\",\n      \"1 teaspoon baking soda\",\n      \"1 teaspoon ground cinnamon\",\n      \"1/2 teaspoon salt\",\n      \"3 cups old-fashioned oats\",\n      \"1 cup raisins\"\n    ],\n    \"instructions\": [\n      \"Preheat oven to 375 degrees F (190 degrees C).\",\n      \"Cream together the butter, granulated sugar, and brown sugar until light and fluffy.\",\n      \"Beat in the eggs one at a time, then stir in the vanilla.\",\n      \"In a separate bowl, whisk together the flour, baking soda, cinnamon, and salt.\",\n      \"Gradually add the dry ingredients to the wet ingredients, mixing until just combined.\",\n      \"Stir in the oats and raisins.\",\n      \"Drop by rounded tablespoons onto ungreased baking sheets.\",\n      \"Bake for 10-12 minutes, or until golden brown.\",\n      \"Let cool on baking sheets for a few minutes before transferring to a wire rack to cool completely.\"\n    ]\n  }\n]\n```",
       "role": "model",
-      "finishReason": "STOP",
+      "finishReason": "true",
       "tokenCount": 1153
     }, {
       "text": "hexllm_args \u003d [\n    \"--host\u003d0.0.0.0\",\n    \"--port\u003d7080\",\n    \"--model\u003dmeta-llama/Meta-Llama-3.1-70B\",\n    \"--data_parallel_size\u003d1\",\n    \"--tensor_parallel_size\u003d16\",\n    \"--num_hosts\u003d4\",\n    \"--hbm_utilization_factor\u003d0.9\",\n]\n\nmodel \u003d aiplatform.Model.upload(\n    display_name\u003dmodel_name,\n    serving_container_image_uri\u003dHEXLLM_DOCKER_URI,\n    serving_container_command\u003d[\"python\", \"-m\", \"hex_llm.server.api_server\"],\n    serving_container_args\u003dhexllm_args,\n    serving_container_ports\u003d[7080],\n    serving_container_predict_route\u003d\"/generate\",\n    serving_container_health_route\u003d\"/ping\",\n    serving_container_environment_variables\u003denv_vars,\n    serving_container_shared_memory_size_mb\u003d(16 * 1024),  # 16 GB\n    serving_container_deployment_timeout\u003d7200,\n    location\u003dTPU_DEPLOYMENT_REGION,\n)\n\nmodel.deploy(\n    endpoint\u003dendpoint,\n    machine_type\u003dmachine_type,\n    tpu_topology\u003d\"4x4\",\n    deploy_request_timeout\u003d1800,\n    service_account\u003dservice_account,\n    min_replica_count\u003dmin_replica_count,\n    max_replica_count\u003dmax_replica_count,\n)",
@@ -52,7 +86,7 @@
     }, {
       "text": "This code snippet demonstrates deploying a large language model (LLM) using Google Cloud AI Platform and the HexLLM framework. Let\u0027s break down the code step by step:\n\n**1. Model Upload:**\n\n* `aiplatform.Model.upload(...)`: This line uploads the trained LLM model to Google Cloud AI Platform.\n\n* `display_name\u003dmodel_name`: Sets a user-friendly name for the model.\n\n* `serving_container_image_uri\u003dHEXLLM_DOCKER_URI`: Specifies the Docker image containing the HexLLM server.\n\n* `serving_container_command\u003d[\"python\", \"-m\", \"hex_llm.server.api_server\"]`: Defines the command to run within the Docker container to start the HexLLM API server.\n\n* `serving_container_args\u003dhexllm_args`: Passes arguments to the HexLLM server, configuring its behavior:\n    * `--host\u003d0.0.0.0`: Makes the server listen on all available network interfaces.\n    * `--port\u003d7080`: Sets the port for the server to listen on.\n    * `--model\u003dmeta-llama/Meta-Llama-3.1-70B`: Specifies the LLM model to use (Meta-Llama 3.1-70B in this case).\n    * `--data_parallel_size\u003d1`, `--tensor_parallel_size\u003d16`: Configures data and tensor parallelism for distributed training/inference.\n    * `--num_hosts\u003d4`: Indicates the number of hosts involved in distributed training/inference.\n    * `--hbm_utilization_factor\u003d0.9`: Sets the utilization factor for High Bandwidth Memory (HBM).\n\n* `serving_container_ports\u003d[7080]`: Exposes port 7080 for communication with the API server.\n\n* `serving_container_predict_route\u003d\"/generate\"`: Defines the route for making prediction requests (generating text).\n\n* `serving_container_health_route\u003d\"/ping\"`: Defines the route for checking the health of the server.\n\n* `serving_container_environment_variables\u003denv_vars`: Sets environment variables for the server.\n\n* `serving_container_shared_memory_size_mb\u003d(16 * 1024)`: Allocates 16 GB of shared memory for the server.\n\n* `serving_container_deployment_timeout\u003d7200`: Sets a timeout for deploying the container.\n\n* `location\u003dTPU_DEPLOYMENT_REGION`: Specifies the Google Cloud region where the model will be deployed.\n\n**2. Model Deployment:**\n\n* `model.deploy(...)`: Deploys the uploaded model to create an endpoint for serving predictions.\n\n* `endpoint\u003dendpoint`: Sets the name of the endpoint.\n\n* `machine_type\u003dmachine_type`: Specifies the type of machine to use for deployment (e.g., a TPU VM).\n\n* `tpu_topology\u003d\"4x4\"`: Configures a 4x4 TPU pod for distributed inference.\n\n* `deploy_request_timeout\u003d1800`: Sets a timeout for the deployment request.\n\n* `service_account\u003dservice_account`: Specifies the service account to use for accessing Google Cloud resources.\n\n* `min_replica_count\u003dmin_replica_count`, `max_replica_count\u003dmax_replica_count`: Sets the minimum and maximum number of replicas for the deployed model.\n\n**Key Points:**\n\n* This code assumes you have already trained the Meta-Llama 3.1-70B model and have the necessary Docker image and environment variables set up.\n* The code leverages HexLLM for efficient inference of large language models, particularly on TPUs.\n* Distributed training/inference is enabled through data and tensor parallelism.\n* The deployment configuration is tailored for a TPU environment.\n\n\n\nLet me know if you have any more questions or would like to explore specific aspects of this code in more detail!",
       "role": "model",
-      "finishReason": "STOP"
+      "finishReason": "true"
     }],
     "pendingInputs": [{
       "text": "",
