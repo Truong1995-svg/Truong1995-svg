@@ -1,5 +1,5 @@
 {
-//** Begin Function
+/** "Begin Function"
 //** args = [videoOrChannelId, ownerWalletAddress, type]
 const videoOrChannelId = args[0]; // video or channel id get from youtube eg. xyFa2amJJoY
 const ownerWalletAddress = args[1]; // owner wallet address eg. 0x1282401445452436b4094E86619B2Fd2fAD464d8
