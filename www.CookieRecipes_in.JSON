@@ -1,4 +1,28 @@
-		 */
+"runSettings": 
+    "temperature": 1.0,
+    "model": "models/gemma-2-27b-it",
+    "top": 0.95,
+    "maxOutputTokens": 8192,
+    "safetySettings": [{
+      "category": "HARM_CATEGORY_HARASSMENT",
+      "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+    }, {
+      "category": "HARM_CATEGORY_HATE_SPEECH",
+      "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+    }, {
+      "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+      "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+    }, {
+      "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+      "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+    }],
+    "responseMimeType": "text/plain",
+    "enableCodeExecution": false,
+    "enableEnhancedCivicAnswers": true,
+    "enableSearchAsATool": false,
+    "enableBrowseAsATool": false,
+    "enableAutoFunctionResponse": false
+  },/
 		this._loaderClass;
  
 		/**
@@ -137,31 +161,6 @@
 name: Run Tests
       run: |
   # python manage.py test 
-"runSettings": 
-    "temperature": 1.0,
-    "model": "models/gemma-2-27b-it",
-    "top": 0.95,
-    "maxOutputTokens": 8192,
-    "safetySettings": [{
-      "category": "HARM_CATEGORY_HARASSMENT",
-      "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-    }, {
-      "category": "HARM_CATEGORY_HATE_SPEECH",
-      "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-    }, {
-      "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-      "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-    }, {
-      "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
-      "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-    }],
-    "responseMimeType": "text/plain",
-    "enableCodeExecution": false,
-    "enableEnhancedCivicAnswers": true,
-    "enableSearchAsATool": false,
-    "enableBrowseAsATool": false,
-    "enableAutoFunctionResponse": false
-  },
   "citations": [{
     "text": "n sugar\",\n      \"2 teaspoons pure vanilla extract\",\n      \"2 large eggs\",\n      \"2 1/4 cups all-purpose flour\",\n      \"1 teaspoon baking soda\",\n      \"1 teaspoon salt\"",
     "uri": "https://www.oklikshare.com/2023/07/cookies-recipe-preppy-kitchen-2023.html"
