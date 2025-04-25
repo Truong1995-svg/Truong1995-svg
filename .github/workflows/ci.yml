@@ -1,8 +1,12 @@
-# Copyright (c) 2023 The Bitcoin Core developers
-# Distributed under the MIT software license, see the accompanying
-# file COPYING or http://www.opensource.org/licenses/mit-license.php.
+name: docs
 
+on:
+
+#See docs: Copyright (c) 2023 The Bitcoin Core developers
+#See docs: Distributed under the MIT software license, see the accompanying
+#See docs: file COPYING or http://www.opensource.org/licenses/mit-license.php.
 name: CI
+
 on:
   # See: https://github.com/actions/attest-build-provenance.
   pull_request:
