@@ -1,27 +1,139 @@
-name: Makefile CI
+/
+		this._loaderClass;
+ 
+		/**
+		 * A reference to an AbstractSoundInstance class used by a plugin that must be set.
+		 * @type {Object}
+		 * @protected;
+		 */
+		this._soundInstanceClass;
+	};
+	var p = AbstractPlugin.prototype;
+ },{
+// Static Properties:
+// NOTE THESE PROPERTIES NEED TO BE ADDED TO EACH PLUGIN
+	/**
+	 * The capabilities of the plugin. This is generated via the _generateCapabilities method and is used internally.
+	 * @property _capabilities
+	 * @type {Object}
+	 * @default null
+	 * @private
+	 * @static
+	 */
+	AbstractPlugin._capabilities = null;
+ 
+	/**
+	 * Determine if the plugin can be used in the current browser/OS.
+	 * @method isSupported
+	 * @return {Boolean} If the plugin can be initialized.
+	 * @static
+	 */
+	AbstractPlugin.isSupported = function () {
+		return true;
+	};
+ 
+ 
+// public methods:
+	/**
+	 * Pre-register a sound for preloading and setup. This is called by {{#crossLink "Sound"}}{{/crossLink}}.
+	 * Note all plugins provide a <code>Loader</code> instance, which <a href="http://preloadjs.com" target="_blank">PreloadJS</a>
+	 * can use to assist with preloading.
+	 * @method register
+	 * @param {String} loadItem An Object containing the source of the audio
+	 * Note that not every plugin will manage this value.
+	 * @return {Object} A result object, containing a "tag" for preloading purposes.
+	 */
+	p.register = function (loadItem) {
+		var loader = this._loaders[loadItem.src];
+		if(loader && !loader.canceled) {return this._loaders[loadItem.src];}	// already loading/loaded this, so don't load twice
+		// OJR potential issue that we won't be firing loaded event, might need to trigger if this is already loaded?
+		this._audioSources[loadItem.src] = true;
+		this._soundInstances[loadItem.src] = [];
+		loader = new this._loaderClass(loadItem);
+		loader.on("complete", this._handlePreloadComplete, this);
+		this._loaders[loadItem.src] = loader;
+		return loader;
+	};
+ 
+	// note sound calls register before calling preload
+	/**
+	 * Internally preload a sound.
+	 * @method preload
+	 * @param {Loader} loader The sound URI to load.
+	 */
+	p.preload = function (loader) {
+		loader.on("error", this._handlePreloadError, this);
+		loader.load();
+	};
+ 
+	/**
+	 * Checks if preloading has started for a specific source. If the source is found, we can assume it is loading,
+	 * or has already finished loading.
+	 * @method isPreloadStarted
+	 * @param {String} src The sound URI to check.
+	 * @return {Boolean}
+	 */
+	p.isPreloadStarted = function (src) {
+		return (this._audioSources[src] != null);
+	};
+ 
+	/**
+	 * Checks if preloading has finished for a specific source.
+	 * @method isPreloadComplete
+	 * @param {String} src The sound URI to load.
+	 * @return {Boolean}
+	 */
+	p.isPreloadComplete = function (src) {
+		return (!(this._audioSources[src] == null || this._audioSources[src] == true));
+	};
+ 
+	/**
+	 * Remove a sound added using {{#crossLink "WebAudioPlugin/register"}}{{/crossLink}}. Note this does not cancel a preload.
+	 * @method removeSound
+	 * @param {String} src The sound URI to unload.
+	 */
+	p.removeSound = function (src) {
+		if (!this._soundInstances[src]) { return; }
+		for (var i = this._soundInstances[src].length; i--; ) {
+			var item = this._soundInstances[src][i];
+			item.destroy();
+		}
+		delete(this._soundInstances[src]);
+		delete(this._audioSources[src]);
+		if(this._loaders[src]) { this._loaders[src].destroy(); }
+		delete(this._loaders[src]);
+	};
+ 
+	/**
+	 * Remove all sounds added using {{#crossLink "WebAudioPlugin/register"}}{{/crossLink}}. Note this does not cancel a preload.
+	 * @method removeAllSounds
+	 * @param {String} src The sound URI to unload.
+	 */
+	p.removeAllSounds = function () {
+		for(var key in this._audioSources) {
+			this.removeSound(key);
+		}
+	};
+ 
+	/**
+	 * Create a sound instance. If the sound has not been preloaded, it is internally preloaded here.
+	 * @method create
+	 * @param {String} src The sound source to use.
+	 * @param {Number} startTime Audio sprite property used to apply an offset, in milliseconds.
+	 * @param {Number} duration Audio sprite property used to set the time the clip plays for, in milliseconds.
+	 * @return {AbstractSoundInstance} A sound instance for playback and control.
+	 */
+	p.create = function (src, startTime, duration) {
+		if (!this.isPreloadStarted(src)) {
+			this.preload(this.register(src));
+		}
+		var si = new this._soundInstanceClass(src, startTime, duration, this._audioSources[src]);
+		if(this._soundInstances[src]){
+			this._soundInstances[src].push(si);
+		}
+ 
+		// Plugins that don't have a setVolume should implement a setMasterVolume/setMasterMute
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: configure
-      run: ./configure
-
-    - name: Install dependencies
-      run: make
-
-    - name: Run check
-      run: make check
-
-    - name: Run distcheck
-      run: make distcheck
+name: Run Tests
+      run: |
+  # python manage.py test 
