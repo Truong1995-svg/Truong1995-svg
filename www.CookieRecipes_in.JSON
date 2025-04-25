@@ -1,3 +1,4 @@
+{
 //** Begin Function
 //** args = [videoOrChannelId, ownerWalletAddress, type]
 const videoOrChannelId = args[0]; // video or channel id get from youtube eg. xyFa2amJJoY
@@ -21,9 +22,8 @@ const youtubeRequest = Functions.makeHttpRequest({
     key: secrets.apiKey
   },
 });
-
-const youtubeResponse = await youtubeRequest;
-
+},{
+# const youtubeResponse = await youtubeRequest;
 if (youtubeResponse.error) {
   throw new Error("Youtube error");
 }
@@ -70,13 +70,13 @@ File:AbstractPlugin.js
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
+},{
  
 // namespace:
 this.createjs = this.createjs || {};
  
 (function () {
 	"use strict";
- 
  
 // constructor:
  	/**
@@ -148,7 +148,7 @@ this.createjs = this.createjs || {};
 		this._soundInstanceClass;
 	};
 	var p = AbstractPlugin.prototype;
- 
+ },{
 // Static Properties:
 // NOTE THESE PROPERTIES NEED TO BE ADDED TO EACH PLUGIN
 	/**
@@ -318,9 +318,8 @@ this.createjs = this.createjs || {};
 	p.toString = function () {
 		return "[AbstractPlugin]";
 	};
- 
- 
-// private methods:
+ },{
+ // private methods:
 	/**
 	 * Handles internal preload completion.
 	 * @method _handlePreloadComplete
@@ -454,4 +453,5 @@ jobs:
       "role": "user"
     }]
   }
+ }
 }
