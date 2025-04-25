@@ -1,3 +1,4 @@
+{
 "runSettings": 
     "temperature": 1.0,
     "model": "models/gemma-2-27b-it",
@@ -22,8 +23,8 @@
     "enableSearchAsATool": false,
     "enableBrowseAsATool": false,
     "enableAutoFunctionResponse": false
-  },/
-		this._loaderClass;
+  },{
+		/** this._loaderClass;
  
 		/**
 		 * A reference to an AbstractSoundInstance class used by a plugin that must be set.
@@ -56,7 +57,7 @@
 		return true;
 	};
  
- 
+ },{
 // public methods:
 	/**
 	 * Pre-register a sound for preloading and setup. This is called by {{#crossLink "Sound"}}{{/crossLink}}.
@@ -89,6 +90,7 @@
 		loader.on("error", this._handlePreloadError, this);
 		loader.load();
 	};
+},{
  
 	/**
 	 * Checks if preloading has started for a specific source. If the source is found, we can assume it is loading,
@@ -157,7 +159,8 @@
 		}
  
 		// Plugins that don't have a setVolume should implement a setMasterVolume/setMasterMute
-
+  }
+},{
 name: Run Tests
       run: |
   # python manage.py test 
@@ -195,6 +198,7 @@ name: Run Tests
       "text": "",
       "role": "user"
     }]
+  }
   }
  }
 }
