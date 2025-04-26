@@ -1,145 +1,4 @@
-{
-		/** this._loaderClass;
- 
-		/**
-		 * A reference to an AbstractSoundInstance class used by a plugin that must be set.
-		 * @type {Object}
-		 * @protected;
-		 */
-		this._soundInstanceClass;
-	};
-	var p = AbstractPlugin.prototype;
- },{
-// Static Properties:
-// NOTE THESE PROPERTIES NEED TO BE ADDED TO EACH PLUGIN
-	/**
-	 * The capabilities of the plugin. This is generated via the _generateCapabilities method and is used internally.
-	 * @property _capabilities
-	 * @type {Object}
-	 * @default null
-	 * @private
-	 * @static
-	 */
-	AbstractPlugin._capabilities = null;
- 
-	/**
-	 * Determine if the plugin can be used in the current browser/OS.
-	 * @method isSupported
-	 * @return {Boolean} If the plugin can be initialized.
-	 * @static
-	 */
-	AbstractPlugin.isSupported = function () {
-		return true;
-	};
- 
- },{
-// public methods:
-	/**
-	 * Pre-register a sound for preloading and setup. This is called by {{#crossLink "Sound"}}{{/crossLink}}.
-	 * Note all plugins provide a <code>Loader</code> instance, which <a href="http://preloadjs.com" target="_blank">PreloadJS</a>
-	 * can use to assist with preloading.
-	 * @method register
-	 * @param {String} loadItem An Object containing the source of the audio
-	 * Note that not every plugin will manage this value.
-	 * @return {Object} A result object, containing a "tag" for preloading purposes.
-	 */
-	p.register = function (loadItem) {
-		var loader = this._loaders[loadItem.src];
-		if(loader && !loader.canceled) {return this._loaders[loadItem.src];}	// already loading/loaded this, so don't load twice
-		// OJR potential issue that we won't be firing loaded event, might need to trigger if this is already loaded?
-		this._audioSources[loadItem.src] = true;
-		this._soundInstances[loadItem.src] = [];
-		loader = new this._loaderClass(loadItem);
-		loader.on("complete", this._handlePreloadComplete, this);
-		this._loaders[loadItem.src] = loader;
-		return loader;
-	};
- 
-	// note sound calls register before calling preload
-	/**
-	 * Internally preload a sound.
-	 * @method preload
-	 * @param {Loader} loader The sound URI to load.
-	 */
-	p.preload = function (loader) {
-		loader.on("error", this._handlePreloadError, this);
-		loader.load();
-	};
-},{
- 
-	/**
-	 * Checks if preloading has started for a specific source. If the source is found, we can assume it is loading,
-	 * or has already finished loading.
-	 * @method isPreloadStarted
-	 * @param {String} src The sound URI to check.
-	 * @return {Boolean}
-	 */
-	p.isPreloadStarted = function (src) {
-		return (this._audioSources[src] != null);
-	};
- 
-	/**
-	 * Checks if preloading has finished for a specific source.
-	 * @method isPreloadComplete
-	 * @param {String} src The sound URI to load.
-	 * @return {Boolean}
-	 */
-	p.isPreloadComplete = function (src) {
-		return (!(this._audioSources[src] == null || this._audioSources[src] == true));
-	};
- 
-	/**
-	 * Remove a sound added using {{#crossLink "WebAudioPlugin/register"}}{{/crossLink}}. Note this does not cancel a preload.
-	 * @method removeSound
-	 * @param {String} src The sound URI to unload.
-	 */
-	p.removeSound = function (src) {
-		if (!this._soundInstances[src]) { return; }
-		for (var i = this._soundInstances[src].length; i--; ) {
-			var item = this._soundInstances[src][i];
-			item.destroy();
-		}
-		delete(this._soundInstances[src]);
-		delete(this._audioSources[src]);
-		if(this._loaders[src]) { this._loaders[src].destroy(); }
-		delete(this._loaders[src]);
-	};
- 
-	/**
-	 * Remove all sounds added using {{#crossLink "WebAudioPlugin/register"}}{{/crossLink}}. Note this does not cancel a preload.
-	 * @method removeAllSounds
-	 * @param {String} src The sound URI to unload.
-	 */
-	p.removeAllSounds = function () {
-		for(var key in this._audioSources) {
-			this.removeSound(key);
-		}
-	};
- 
-	/**
-	 * Create a sound instance. If the sound has not been preloaded, it is internally preloaded here.
-	 * @method create
-	 * @param {String} src The sound source to use.
-	 * @param {Number} startTime Audio sprite property used to apply an offset, in milliseconds.
-	 * @param {Number} duration Audio sprite property used to set the time the clip plays for, in milliseconds.
-	 * @return {AbstractSoundInstance} A sound instance for playback and control.
-	 */
-	p.create = function (src, startTime, duration) {
-		if (!this.isPreloadStarted(src)) {
-			this.preload(this.register(src));
-		}
-		var si = new this._soundInstanceClass(src, startTime, duration, this._audioSources[src]);
-		if(this._soundInstances[src]){
-			this._soundInstances[src].push(si);
-		}
- 
-		// Plugins that don't have a setVolume should implement a setMasterVolume/setMasterMute
-  }
-},{
-name: Run Tests
-      run: |
-  # python manage.py test 
-  "citations": [{
+"citations": [{
     "text": "n sugar\",\n      \"2 teaspoons pure vanilla extract\",\n      \"2 large eggs\",\n      \"2 1/4 cups all-purpose flour\",\n      \"1 teaspoon baking soda\",\n      \"1 teaspoon salt\"",
     "uri": "https://www.oklikshare.com/2023/07/cookies-recipe-preppy-kitchen-2023.html"
   }, {
@@ -172,7 +31,234 @@ name: Run Tests
     "pendingInputs": [{
       "text": "",
       "role": "user"
-    }]
+{
+  "name": "typescript-action",
+  "description": "GitHub Actions TypeScript template",
+  "version": "0.0.0",
+  "author": "",
+  "private": true,
+  "homepage": "https://github.com/actions/typescript-action",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/actions/typescript-action.git"
+  },
+  "bugs": {
+    "url": "https://github.com/actions/typescript-action/issues"
+  },
+  "keywords": [
+    "actions",
+    "node",
+    "setup"
+  ],
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "engines": {
+    "node": "\u003E=20"
+  },
+  "scripts": {
+    "bundle": "npm run format:write && npm run package",
+    "ci-test": "npx jest",
+    "coverage": "npx make-coverage-badge --output-path ./badges/coverage.svg",
+    "format:write": "npx prettier --write .",
+    "format:check": "npx prettier --check .",
+    "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",
+    "package": "npx ncc build src/index.ts -o dist --source-map --license licenses.txt",
+    "package:watch": "npm run package -- --watch",
+    "test": "npx jest",
+    "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package",
+    "mock-server": "npx ts-node __tests__/lighthouseci-server.mock.ts"
+  },
+  "license": "MIT",
+  "jest": {
+    "preset": "ts-jest",
+    "verbose": true,
+    "clearMocks": true,
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ],
+    "testMatch": [
+      "**/*.test.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "./src/**"
+    ]
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "boeing": "^0.1.1",
+    "build": "^0.1.4",
+    "docker": "^1.0.0",
+    "html-to-text": "^9.0.5",
+    "marked": "^15.0.7",
+    "package.json": "^2.0.1",
+    "rollup": "^4.36.0",
+    "web3": "^4.16.0",
+    "yarn": "^1.22.22"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.5",
+    "@typescript-eslint/eslint-plugin": "^8.24.1",
+    "@typescript-eslint/parser": "^8.24.1",
+    "@vercel/ncc": "^0.38.3",
+    "eslint": "^8.57.1",
+    "eslint-plugin-github": "^5.1.8",
+    "eslint-plugin-jest": "^28.11.0",
+    "eslint-plugin-jsonc": "^2.19.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "express": "^4.21.2",
+    "jest": "^29.7.0",
+    "lighthouse": "12.3.0",
+    "make-coverage-badge": "^1.2.0",
+    "prettier": "^3.5.2",
+    "prettier-eslint": "^16.3.0",
+    "ts-jest": "^29.2.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+{
+  "name": "typescript-action",
+  "description": "GitHub Actions TypeScript template",
+  "version": "0.0.0",
+  "author": "",
+  "private": true,
+  "homepage": "https://github.com/actions/typescript-action",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/actions/typescript-action.git"
+  },
+  "bugs": {
+    "url": "https://github.com/actions/typescript-action/issues"
+  },
+  "keywords": [
+    "actions",
+    "node",
+    "setup"
+  ],
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "bundle": "npm run format:write && npm run package",
+    "ci-test": "npx jest",
+    "coverage": "npx make-coverage-badge --output-path ./badges/coverage.svg",
+    "format:write": "npx prettier --write .",
+    "format:check": "npx prettier --check .",
+    "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",
+    "package": "npx ncc build src/index.ts -o dist --source-map --license licenses.txt",
+    "package:watch": "npm run package -- --watch",
+    "test": "npx jest",
+    "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package",
+    "mock-server": "npx ts-node __tests__/lighthouseci-server.mock.ts"
+  },
+  "license": "MIT",
+  "jest": {
+    "preset": "ts-jest",
+    "verbose": true,
+    "clearMocks": true,
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ],
+    "testMatch": [
+      "**/*.test.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "./src/**"
+    ]
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "boeing": "^0.1.1",
+    "build": "^0.1.4",
+    "docker": "^1.0.0",
+    "html-to-text": "^9.0.5",
+    "marked": "^15.0.7",
+    "package.json": "^2.0.1",
+    "rollup": "^4.36.0",
+    "web3": "^4.16.0",
+    "yarn": "^1.22.22"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.5",
+    "@typescript-eslint/eslint-plugin": "^8.24.1",
+    "@typescript-eslint/parser": "^8.24.1",
+    "@vercel/ncc": "^0.38.3",
+    "eslint": "^8.57.1",
+    "eslint-plugin-github": "^5.1.8",
+    "eslint-plugin-jest": "^28.11.0",
+    "eslint-plugin-jsonc": "^2.19.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "express": "^4.21.2",
+    "jest": "^29.7.0",
+    "lighthouse": "12.3.0",
+    "make-coverage-badge": "^1.2.0",
+    "prettier": "^3.5.2",
+    "prettier-eslint": "^16.3.0",
+    "ts-jest": "^29.2.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "rootDir": "./src",
+    "moduleResolution": "NodeNext",
+    "baseUrl": "./",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "newLine": "lf"
+  },
+  "exclude": ["./dist", "./node_modules", "./__tests__", "./coverage"]
+}
+ }
+}
+}]
   }
   }
  }
