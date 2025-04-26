@@ -1,0 +1,293 @@
+name: NodeJS with Grunt
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Build
+     "citations": [{
+    "text": "n sugar\",\n      \"2 teaspoons pure vanilla extract\",\n      \"2 large eggs\",\n      \"2 1/4 cups all-purpose flour\",\n      \"1 teaspoon baking soda\",\n      \"1 teaspoon salt\"",
+    "uri": "https://www.oklikshare.com/2023/07/cookies-recipe-preppy-kitchen-2023.html"
+  }, {
+    "text": "ned.\",\n      \"Stir in the chocolate chips.\",\n      \"Drop by rounded tablespoons onto ungreased baking sheets.\",\n      \"Bake for ",
+    "uri": "https://github.com/frdrck100/To_Do_Assignments"
+  }, {
+    "text": "each ball with a fork, making a criss-cross pattern.\","
+  }],
+  "systemInstruction": {
+  },
+  "chunkedPrompt": {
+    "chunks": [{
+      "text": "Generate a list of cookie recipes. Make the outputs in JSON format.",
+      "role": "user",
+      "tokenCount": 15
+    }, {
+      "text": "```json\n[\n  {\n    \"name\": \"Classic Chocolate Chip Cookies\",\n    \"ingredients\": [\n      \"1 cup (2 sticks) unsalted butter, softened\",\n      \"3/4 cup granulated sugar\",\n      \"3/4 cup packed brown sugar\",\n      \"2 teaspoons pure vanilla extract\",\n      \"2 large eggs\",\n      \"2 1/4 cups all-purpose flour\",\n      \"1 teaspoon baking soda\",\n      \"1 teaspoon salt\",\n      \"2 cups chocolate chips\"\n    ],\n    \"instructions\": [\n      \"Preheat oven to 375 degrees F (190 degrees C).\",\n      \"Cream together the butter, granulated sugar, and brown sugar until light and fluffy.\",\n      \"Beat in the vanilla and eggs until well combined.\",\n      \"In a separate bowl, whisk together the flour, baking soda, and salt.\",\n      \"Gradually add the dry ingredients to the wet ingredients, mixing until just combined.\",\n      \"Stir in the chocolate chips.\",\n      \"Drop by rounded tablespoons onto ungreased baking sheets.\",\n      \"Bake for 9-11 minutes, or until golden brown.\",\n      \"Let cool on baking sheets for a few minutes before transferring to a wire rack to cool completely.\"\n    ]\n  },\n  {\n    \"name\": \"Peanut Butter Cookies\",\n    \"ingredients\": [\n      \"1 cup peanut butter\",\n      \"1/2 cup granulated sugar\",\n      \"1/2 cup packed brown sugar\",\n      \"1 large egg\",\n      \"1 teaspoon vanilla extract\",\n      \"1/2 teaspoon baking soda\",\n      \"1/4 teaspoon salt\"\n    ],\n    \"instructions\": [\n      \"Preheat oven to 375 degrees F (190 degrees C).\",\n      \"In a large bowl, cream together the peanut butter, granulated sugar, and brown sugar until smooth.\",\n      \"Beat in the egg and vanilla extract.\",\n      \"In a separate bowl, whisk together the baking soda and salt.\",\n      \"Gradually add the dry ingredients to the wet ingredients, mixing until just combined.\",\n      \"Roll dough into 1-inch balls and place on ungreased baking sheets.\",\n      \"Flatten each ball with a fork, making a criss-cross pattern.\",\n      \"Bake for 8-10 minutes, or until lightly golden brown.\",\n      \"Let cool on baking sheets for a few minutes before transferring to a wire rack to cool completely.\"\n    ]\n  },\n  {\n    \"name\": \"Snickerdoodles\",\n    \"ingredients\": [\n      \"1 cup (2 sticks) unsalted butter, softened\",\n      \"1 1/2 cups granulated sugar\",\n      \"2 large eggs\",\n      \"2 3/4 cups all-purpose flour\",\n      \"2 teaspoons cream of tartar\",\n      \"1 teaspoon baking soda\",\n      \"1/4 teaspoon salt\",\n      \"2 tablespoons granulated sugar\",\n      \"2 teaspoons ground cinnamon\"\n    ],\n    \"instructions\": [\n      \"Preheat oven to 400 degrees F (200 degrees C).\",\n      \"Cream together the butter and sugar until light and fluffy.\",\n      \"Beat in the eggs one at a time.\",\n      \"In a separate bowl, whisk together the flour, cream of tartar, baking soda, and salt.\",\n      \"Gradually add the dry ingredients to the wet ingredients, mixing until just combined.\",\n      \"In a small bowl, combine the 2 tablespoons of sugar and the cinnamon.\",\n      \"Roll dough into 1-inch balls and then roll in the cinnamon-sugar mixture.\",\n      \"Place on ungreased baking sheets.\",\n      \"Bake for 8-10 minutes, or until lightly golden brown.\",\n      \"Let cool on baking sheets for a few minutes before transferring to a wire rack to cool completely.\"\n    ]\n  },\n  {\n    \"name\": \"Oatmeal Raisin Cookies\",\n    \"ingredients\": [\n      \"1 cup (2 sticks) unsalted butter, softened\",\n      \"3/4 cup granulated sugar\",\n      \"3/4 cup packed brown sugar\",\n      \"2 large eggs\",\n      \"1 teaspoon vanilla extract\",\n      \"1 1/2 cups all-purpose flour\",\n      \"1 teaspoon baking soda\",\n      \"1 teaspoon ground cinnamon\",\n      \"1/2 teaspoon salt\",\n      \"3 cups old-fashioned oats\",\n      \"1 cup raisins\"\n    ],\n    \"instructions\": [\n      \"Preheat oven to 375 degrees F (190 degrees C).\",\n      \"Cream together the butter, granulated sugar, and brown sugar until light and fluffy.\",\n      \"Beat in the eggs one at a time, then stir in the vanilla.\",\n      \"In a separate bowl, whisk together the flour, baking soda, cinnamon, and salt.\",\n      \"Gradually add the dry ingredients to the wet ingredients, mixing until just combined.\",\n      \"Stir in the oats and raisins.\",\n      \"Drop by rounded tablespoons onto ungreased baking sheets.\",\n      \"Bake for 10-12 minutes, or until golden brown.\",\n      \"Let cool on baking sheets for a few minutes before transferring to a wire rack to cool completely.\"\n    ]\n  }\n]\n```",
+      "role": "model",
+      "finishReason": "true",
+      "tokenCount": 1153
+    }, {
+      "text": "hexllm_args \u003d [\n    \"--host\u003d0.0.0.0\",\n    \"--port\u003d7080\",\n    \"--model\u003dmeta-llama/Meta-Llama-3.1-70B\",\n    \"--data_parallel_size\u003d1\",\n    \"--tensor_parallel_size\u003d16\",\n    \"--num_hosts\u003d4\",\n    \"--hbm_utilization_factor\u003d0.9\",\n]\n\nmodel \u003d aiplatform.Model.upload(\n    display_name\u003dmodel_name,\n    serving_container_image_uri\u003dHEXLLM_DOCKER_URI,\n    serving_container_command\u003d[\"python\", \"-m\", \"hex_llm.server.api_server\"],\n    serving_container_args\u003dhexllm_args,\n    serving_container_ports\u003d[7080],\n    serving_container_predict_route\u003d\"/generate\",\n    serving_container_health_route\u003d\"/ping\",\n    serving_container_environment_variables\u003denv_vars,\n    serving_container_shared_memory_size_mb\u003d(16 * 1024),  # 16 GB\n    serving_container_deployment_timeout\u003d7200,\n    location\u003dTPU_DEPLOYMENT_REGION,\n)\n\nmodel.deploy(\n    endpoint\u003dendpoint,\n    machine_type\u003dmachine_type,\n    tpu_topology\u003d\"4x4\",\n    deploy_request_timeout\u003d1800,\n    service_account\u003dservice_account,\n    min_replica_count\u003dmin_replica_count,\n    max_replica_count\u003dmax_replica_count,\n)",
+      "role": "user",
+      "tokenCount": 375
+    }, {
+      "text": "This code snippet demonstrates deploying a large language model (LLM) using Google Cloud AI Platform and the HexLLM framework. Let\u0027s break down the code step by step:\n\n**1. Model Upload:**\n\n* `aiplatform.Model.upload(...)`: This line uploads the trained LLM model to Google Cloud AI Platform.\n\n* `display_name\u003dmodel_name`: Sets a user-friendly name for the model.\n\n* `serving_container_image_uri\u003dHEXLLM_DOCKER_URI`: Specifies the Docker image containing the HexLLM server.\n\n* `serving_container_command\u003d[\"python\", \"-m\", \"hex_llm.server.api_server\"]`: Defines the command to run within the Docker container to start the HexLLM API server.\n\n* `serving_container_args\u003dhexllm_args`: Passes arguments to the HexLLM server, configuring its behavior:\n    * `--host\u003d0.0.0.0`: Makes the server listen on all available network interfaces.\n    * `--port\u003d7080`: Sets the port for the server to listen on.\n    * `--model\u003dmeta-llama/Meta-Llama-3.1-70B`: Specifies the LLM model to use (Meta-Llama 3.1-70B in this case).\n    * `--data_parallel_size\u003d1`, `--tensor_parallel_size\u003d16`: Configures data and tensor parallelism for distributed training/inference.\n    * `--num_hosts\u003d4`: Indicates the number of hosts involved in distributed training/inference.\n    * `--hbm_utilization_factor\u003d0.9`: Sets the utilization factor for High Bandwidth Memory (HBM).\n\n* `serving_container_ports\u003d[7080]`: Exposes port 7080 for communication with the API server.\n\n* `serving_container_predict_route\u003d\"/generate\"`: Defines the route for making prediction requests (generating text).\n\n* `serving_container_health_route\u003d\"/ping\"`: Defines the route for checking the health of the server.\n\n* `serving_container_environment_variables\u003denv_vars`: Sets environment variables for the server.\n\n* `serving_container_shared_memory_size_mb\u003d(16 * 1024)`: Allocates 16 GB of shared memory for the server.\n\n* `serving_container_deployment_timeout\u003d7200`: Sets a timeout for deploying the container.\n\n* `location\u003dTPU_DEPLOYMENT_REGION`: Specifies the Google Cloud region where the model will be deployed.\n\n**2. Model Deployment:**\n\n* `model.deploy(...)`: Deploys the uploaded model to create an endpoint for serving predictions.\n\n* `endpoint\u003dendpoint`: Sets the name of the endpoint.\n\n* `machine_type\u003dmachine_type`: Specifies the type of machine to use for deployment (e.g., a TPU VM).\n\n* `tpu_topology\u003d\"4x4\"`: Configures a 4x4 TPU pod for distributed inference.\n\n* `deploy_request_timeout\u003d1800`: Sets a timeout for the deployment request.\n\n* `service_account\u003dservice_account`: Specifies the service account to use for accessing Google Cloud resources.\n\n* `min_replica_count\u003dmin_replica_count`, `max_replica_count\u003dmax_replica_count`: Sets the minimum and maximum number of replicas for the deployed model.\n\n**Key Points:**\n\n* This code assumes you have already trained the Meta-Llama 3.1-70B model and have the necessary Docker image and environment variables set up.\n* The code leverages HexLLM for efficient inference of large language models, particularly on TPUs.\n* Distributed training/inference is enabled through data and tensor parallelism.\n* The deployment configuration is tailored for a TPU environment.\n\n\n\nLet me know if you have any more questions or would like to explore specific aspects of this code in more detail!",
+      "role": "model",
+      "finishReason": "true"
+    }],
+    "pendingInputs": [{
+      "text": "",
+      "role": "user"
+{
+  "name": "typescript-action",
+  "description": "GitHub Actions TypeScript template",
+  "version": "0.0.0",
+  "author": "",
+  "private": true,
+  "homepage": "https://github.com/actions/typescript-action",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/actions/typescript-action.git"
+  },
+  "bugs": {
+    "url": "https://github.com/actions/typescript-action/issues"
+  },
+  "keywords": [
+    "actions",
+    "node",
+    "setup"
+  ],
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "engines": {
+    "node": "\u003E=20"
+  },
+  "scripts": {
+    "bundle": "npm run format:write && npm run package",
+    "ci-test": "npx jest",
+    "coverage": "npx make-coverage-badge --output-path ./badges/coverage.svg",
+    "format:write": "npx prettier --write .",
+    "format:check": "npx prettier --check .",
+    "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",
+    "package": "npx ncc build src/index.ts -o dist --source-map --license licenses.txt",
+    "package:watch": "npm run package -- --watch",
+    "test": "npx jest",
+    "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package",
+    "mock-server": "npx ts-node __tests__/lighthouseci-server.mock.ts"
+  },
+  "license": "MIT",
+  "jest": {
+    "preset": "ts-jest",
+    "verbose": true,
+    "clearMocks": true,
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ],
+    "testMatch": [
+      "**/*.test.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "./src/**"
+    ]
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "boeing": "^0.1.1",
+    "build": "^0.1.4",
+    "docker": "^1.0.0",
+    "html-to-text": "^9.0.5",
+    "marked": "^15.0.7",
+    "package.json": "^2.0.1",
+    "rollup": "^4.36.0",
+    "web3": "^4.16.0",
+    "yarn": "^1.22.22"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.5",
+    "@typescript-eslint/eslint-plugin": "^8.24.1",
+    "@typescript-eslint/parser": "^8.24.1",
+    "@vercel/ncc": "^0.38.3",
+    "eslint": "^8.57.1",
+    "eslint-plugin-github": "^5.1.8",
+    "eslint-plugin-jest": "^28.11.0",
+    "eslint-plugin-jsonc": "^2.19.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "express": "^4.21.2",
+    "jest": "^29.7.0",
+    "lighthouse": "12.3.0",
+    "make-coverage-badge": "^1.2.0",
+    "prettier": "^3.5.2",
+    "prettier-eslint": "^16.3.0",
+    "ts-jest": "^29.2.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+{
+  "name": "typescript-action",
+  "description": "GitHub Actions TypeScript template",
+  "version": "0.0.0",
+  "author": "",
+  "private": true,
+  "homepage": "https://github.com/actions/typescript-action",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/actions/typescript-action.git"
+  },
+  "bugs": {
+    "url": "https://github.com/actions/typescript-action/issues"
+  },
+  "keywords": [
+    "actions",
+    "node",
+    "setup"
+  ],
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "bundle": "npm run format:write && npm run package",
+    "ci-test": "npx jest",
+    "coverage": "npx make-coverage-badge --output-path ./badges/coverage.svg",
+    "format:write": "npx prettier --write .",
+    "format:check": "npx prettier --check .",
+    "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",
+    "package": "npx ncc build src/index.ts -o dist --source-map --license licenses.txt",
+    "package:watch": "npm run package -- --watch",
+    "test": "npx jest",
+    "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package",
+    "mock-server": "npx ts-node __tests__/lighthouseci-server.mock.ts"
+  },
+  "license": "MIT",
+  "jest": {
+    "preset": "ts-jest",
+    "verbose": true,
+    "clearMocks": true,
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ],
+    "testMatch": [
+      "**/*.test.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "./src/**"
+    ]
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "boeing": "^0.1.1",
+    "build": "^0.1.4",
+    "docker": "^1.0.0",
+    "html-to-text": "^9.0.5",
+    "marked": "^15.0.7",
+    "package.json": "^2.0.1",
+    "rollup": "^4.36.0",
+    "web3": "^4.16.0",
+    "yarn": "^1.22.22"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.5",
+    "@typescript-eslint/eslint-plugin": "^8.24.1",
+    "@typescript-eslint/parser": "^8.24.1",
+    "@vercel/ncc": "^0.38.3",
+    "eslint": "^8.57.1",
+    "eslint-plugin-github": "^5.1.8",
+    "eslint-plugin-jest": "^28.11.0",
+    "eslint-plugin-jsonc": "^2.19.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "express": "^4.21.2",
+    "jest": "^29.7.0",
+    "lighthouse": "12.3.0",
+    "make-coverage-badge": "^1.2.0",
+    "prettier": "^3.5.2",
+    "prettier-eslint": "^16.3.0",
+    "ts-jest": "^29.2.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "rootDir": "./src",
+    "moduleResolution": "NodeNext",
+    "baseUrl": "./",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "newLine": "lf"
+  },
+  "exclude": ["./dist", "./node_modules", "./__tests__", "./coverage"]
+}
+ }
+}
+}]
+  }
+  }
+ }
+}
+      run: |
+        npm install
+        grunt
